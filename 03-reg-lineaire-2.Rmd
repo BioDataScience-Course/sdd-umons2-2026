@@ -486,7 +486,7 @@ chart$residuals(trees_lm8)
 
 Clairement, nous aurions pu nous économiser de nombreux essais si nous étions partis directement sur cette piste-là. Malheureusement, la biologie fait intervenir souvent un ensemble de mécanismes (bio)chimiques et physiques qui rendent la compréhension mécanistique du phénomène difficile, voire impossible. Heureusement, les modèles empiriques sont également utiles à condition d'être conscient de leurs limites qui impliquent de ne pas chercher à interpréter les termes et les paramètres comme autant d'indicateurs des mécanismes responsables de la distribution des données et sans tirer de conclusions au-delà de la relation entre variables (pas d'établissement de causalité sur base d'une régression, jamais).
 
-## Récapitulatif des exercices {#recapitulatifb02}
+## Récapitulatif des exercices {#recapitulatifb03}
 
 Ce troisième module vous a permis de prendre connaissance de différents outils de diagnostic pour sélectionner le meilleur modèle et de découvrir la régression linéaire multiple et polynomiale. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
 
