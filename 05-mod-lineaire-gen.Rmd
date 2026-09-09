@@ -6,20 +6,20 @@ SciViews::R("model", lang = "fr")
 
 ```{r purlheader, echo=FALSE}
 #' ---
-#' title: "SDD II module 4 : Modèle linéaire généralisé"
+#' title: "SDD II module 5 : Modèle linéaire généralisé"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 4 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/mod-lineaire-gen.html).
+#' Document complémentaire au [module 5 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/mod-lineaire-gen.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
@@ -443,7 +443,7 @@ Les courbes ne sont pas proches des points. Comment pouvons-nous comprendre cela
 
 ##### À vous de jouer ! {.unnumbered}
 
-`r learnr("B04La_glm", title = "Modèle linéaire généralisé", toc = "Modèle linéaire généralisé")`
+`r learnr("B05La_glm", title = "Modèle linéaire généralisé", toc = "Modèle linéaire généralisé")`
 
 
 ## Modèle linéaire généralisé mixte {#modlingenmixte}
@@ -791,18 +791,18 @@ De manière générale, les modèles linéaires, GLM, GLMM sont compliqués et i
 
 ##### À vous de jouer ! {.unnumbered}
 
-```{r assign_B04Ia_lungcap, echo=FALSE, results='asis', purl=FALSE}
+```{r assign_B05Ia_lungcap, echo=FALSE, results='asis', purl=FALSE}
 if (exists("assignment"))
-  assignment("B04Ia_lungcap", part = NULL,
-    url = "https://github.com/BioDataScience-Course/B04Ia_lungcap",
+  assignment("B05Ia_lungcap", part = NULL,
+    url = "https://github.com/BioDataScience-Course/B05Ia_lungcap",
     course.ids = c(
-      'S-BIOG-015' = !"B04Ia_{YY}M_lungcap"),
+      'S-BIOG-015' = !"B05Ia_{YY}M_lungcap"),
     course.urls = c(
-      'S-BIOG-015' = !"{assign_url$B04Ia_lungcap}"),
+      'S-BIOG-015' = !"{assign_url$B05Ia_lungcap}"),
     course.starts = c(
-      'S-BIOG-015' = !"{class1_start(mod, 'B04')}"),
+      'S-BIOG-015' = !"{class1_start(mod, 'B05')}"),
     course.ends = c(
-      'S-BIOG-015' = !"{n3_end(mod, 'B04')}"),
+      'S-BIOG-015' = !"{n3_end(mod, 'B05')}"),
     term = "Q1", level = 3,
     toc = "Modèle linéaire généralisé (jeunes fumeurs)")
 ```
@@ -823,17 +823,17 @@ if (exists("assignment2"))
     toc = "Modélisations libres par quatre (partie III)")
 ```
 
-## Récapitulatif des exercices {#recapitulatifb04}
+## Récapitulatif des exercices {#recapitulatifb05}
 
-Ce quatrième module vous a permis de comprendre le modèle linéaire généralisé et les modèles linéaires (généralisés) mixtes. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
+Ce cinquième module vous a permis de comprendre le modèle linéaire généralisé et les modèles linéaires (généralisés) mixtes. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
 
-`r show_ex_toc("04")`
+`r show_ex_toc("05")`
 
 ##### Code des exemples {.unnumbered}
 
--  [Document HTML](more/04-mod-lineaire-gen.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/04-mod-lineaire-gen.R){target="top"}
+-  [Document HTML](more/05-mod-lineaire-gen.html)
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/05-mod-lineaire-gen.R){target="top"}
 
 ##### Progression {.unnumbered}
 
-`r launch_report("04", height = 800)`
+`r launch_report("05", height = 800)`

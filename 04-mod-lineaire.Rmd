@@ -7,20 +7,20 @@ library(equatiomatic)
 
 ```{r purlheader, echo=FALSE}
 #' ---
-#' title: "SDD II module 3 : Modèle linéaire"
+#' title: "SDD II module 4 : Modèle linéaire"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 3 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/mod-lineaire.html).
+#' Document complémentaire au [module 4 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/mod-lineaire.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
@@ -651,22 +651,22 @@ Voilà, nous venons d'analyser et d'interpréter nos premiers modèles linéaire
 
 ##### À vous de jouer ! {.unnumbered}
 
-`r learnr("B03La_mod_lin", title = "Modèle linéaire", toc = "Récapitulatif modèles linéaires")`
+`r learnr("B04La_mod_lin", title = "Modèle linéaire", toc = "Récapitulatif modèles linéaires")`
 
 Le projet suivant est individuel et cadré.
 
-```{r assign_B03Ia_who, echo=FALSE, results='asis', purl=FALSE}
+```{r assign_B04Ia_who, echo=FALSE, results='asis', purl=FALSE}
 if (exists("assignment"))
-  assignment("B03Ia_who", part = NULL,
-    url = "https://github.com/BioDataScience-Course/B03Ia_who",
+  assignment("B04Ia_who", part = NULL,
+    url = "https://github.com/BioDataScience-Course/B04Ia_who",
     course.ids = c(
-      'S-BIOG-015' = !"B03Ia_{YY}M_who"),
+      'S-BIOG-015' = !"B04Ia_{YY}M_who"),
     course.urls = c(
-      'S-BIOG-015' = !"{assign_url$B03Ia_who}"),
+      'S-BIOG-015' = !"{assign_url$B04Ia_who}"),
     course.starts = c(
-      'S-BIOG-015' = !"{class1_start(mod, 'B03')}"),
+      'S-BIOG-015' = !"{class1_start(mod, 'B04')}"),
     course.ends = c(
-      'S-BIOG-015' = !"{n3_end(mod, 'B03')}"),
+      'S-BIOG-015' = !"{n3_end(mod, 'B04')}"),
     term = "Q1", level = 3,
     toc = "Modèle linéaire (WHO)")
 ```
@@ -687,17 +687,17 @@ if (exists("assignment2"))
     toc = "Modélisations libres par quatre (partie II)")
 ```
 
-## Récapitulatif des exercices {#recapitulatifb03}
+## Récapitulatif des exercices {#recapitulatifb04}
 
-Ce troisième module vous a permis de comprendre le modèle linéaire, les matrices de contraste et de découvrir l'ANCOVA. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
+Ce quatrième module vous a permis de comprendre le modèle linéaire, les matrices de contraste et de découvrir l'ANCOVA. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
 
-`r show_ex_toc("03")`
+`r show_ex_toc("04")`
 
 ##### Code des exemples {.unnumbered}
 
--  [Document HTML](more/03-mod-lineaire.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/03-mod-lineaire.R){target="top"}
+-  [Document HTML](more/04-mod-lineaire.html)
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/04-mod-lineaire.R){target="top"}
 
 ##### Progression {.unnumbered}
 
-`r launch_report("03", height = 800)`
+`r launch_report("04", height = 800)`

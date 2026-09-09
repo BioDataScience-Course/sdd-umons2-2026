@@ -70,12 +70,13 @@ learnitdown$assign_url <- list(
   # Q1
   B00Qa_issues         = "https://classroom.github.com/a/...",
   B01Ia_debug          = "https://classroom.github.com/a/...",
-  B01Ib_abalone        = "https://classroom.github.com/a/...",
-  B02Ia_achatina       = "https://classroom.github.com/a/...",
+  B01Ib_calib          = "https://classroom.github.com/a/...",
+  B02Ia_abalone        = "https://classroom.github.com/a/...",
   B02Ga_models         = "https://classroom.github.com/a/...",
-  B03Ia_who            = "https://classroom.github.com/a/...",
-  B04Ia_lungcap        = "https://classroom.github.com/a/...",
-  B05Ia_abies_balsamea = "https://classroom.github.com/a/...",
+  B03Ia_achatina       = "https://classroom.github.com/a/...",
+  B04Ia_who            = "https://classroom.github.com/a/...",
+  B05Ia_lungcap        = "https://classroom.github.com/a/...",
+  # Inactivated B05Ia_abies_balsamea = "https://classroom.github.com/a/...",
   B05Ca_models         = "https://classroom.github.com/a/...",
   # Q2
   B06Ia_fish_market    = "https://classroom.github.com/a/...",

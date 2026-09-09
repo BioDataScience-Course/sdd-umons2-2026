@@ -10,18 +10,18 @@ SciViews::R("explore")
 #' ---
 #' title: "SDD II module 6 : Classification & indices"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 6 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/cah-kmeans-div.html).
+#' Document complémentaire au [module 6 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/cah-kmeans-div.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
@@ -1184,7 +1184,7 @@ Ce sixième module vous a permis de comprendre la classification hiérarchique, 
 ##### Code des exemples {.unnumbered}
 
 -  [Document HTML](more/06-cah-kmeans-div.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/06-cah-kmeans-div.R){target="top"}
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/06-cah-kmeans-div.R){target="top"}
 
 
 ##### Progression {.unnumbered}

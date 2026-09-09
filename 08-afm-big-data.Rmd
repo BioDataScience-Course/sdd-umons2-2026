@@ -8,18 +8,18 @@ SciViews::R("explore", lang = "fr")
 #' ---
 #' title: "SDD II module 8 : AFM & big data"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 8 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/afm-big-data.html).
+#' Document complémentaire au [module 8 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/afm-big-data.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
@@ -832,7 +832,7 @@ Ce module 8 vous a permis de découvrir l'AFM, et de traiter correctement des je
 ##### Code des exemples {.unnumbered}
 
 -  [Document HTML](more/08-afm-big-data.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/08-afm-big-data.R){target="top"}
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/08-afm-big-data.R){target="top"}
 
 ##### Progression {.unnumbered}
 

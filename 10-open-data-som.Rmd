@@ -8,18 +8,18 @@ SciViews::R("explore", lang = "fr")
 #' ---
 #' title: "SDD II module 10 : données ouvertes & SOM"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 10 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/open-data-som.html).
+#' Document complémentaire au [module 10 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/open-data-som.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
@@ -499,7 +499,7 @@ Ce dixième module vous a permis de comprendre ce que sont des données ouvertes
 ##### Code des exemples {.unnumbered}
 
 -  [Document HTML](more/10-open-data-som.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/10-open-data-som.R){target="top"}
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/10-open-data-som.R){target="top"}
 
 ##### Progression {.unnumbered}
 

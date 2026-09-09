@@ -8,18 +8,18 @@ SciViews::R("explore")
 #' ---
 #' title: "SDD II module 9 : bases de données & MDS"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 9 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/db-mds.html).
+#' Document complémentaire au [module 9 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/db-mds.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
@@ -927,7 +927,7 @@ Ce neuvième module vous a permis de découvrir le travail sur les bases de donn
 ##### Code des exemples {.unnumbered}
 
 -  [Document HTML](more/09-db-mds.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/09-db-mds.R){target="top"}
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/09-db-mds.R){target="top"}
 
 ##### Progression {.unnumbered}
 

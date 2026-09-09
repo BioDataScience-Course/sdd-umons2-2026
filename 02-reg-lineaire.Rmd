@@ -1,5 +1,3 @@
-# (PART) SDD II: modélisation {.unnumbered}
-
 # Régression linéaire I {#lm}
 
 ```{r setup, include=FALSE, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
@@ -8,26 +6,24 @@ SciViews::R("model", lang = "fr")
 
 ```{r purlheader, echo=FALSE}
 #' ---
-#' title: "SDD II module 1 : Régression linéaire I"
+#' title: "SDD II module 2 : Régression linéaire I"
 #' author: "Ph. Grosjean et G. Engels"
-#' date: "2025-2026"
+#' date: "2026-2027"
 #' output:
 #'   html_document:
 #'     highlight: kate
 #' ---
 #' 
-#' Document complémentaire au [module 1 du cours SDD II de 2025-2026](https://wp.sciviews.org/sdd-umons2-2025/lm.html).
+#' Document complémentaire au [module 2 du cours SDD II de 2026-2027](https://wp.sciviews.org/sdd-umons2-2026/lm.html).
 #' Distribué sous licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
 #' 
 #' **Veuillez vous référer au cours en ligne pour les explications et les interprétations de cette analyse.**
 #' 
-#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2025-native)
+#' [Installer un environnement R](https://github.com/SciViews/svbox/tree/main/svbox2026-native)
 #' adéquat pour reproduire cette analyse. 
 ```
 
 ##### Objectifs {.unnumbered}
-
--   Retrouver ses marques avec R, RStudio et la SciViews Box et découvrir les fonctions supplémentaires de la nouvelle version
 
 -   Découvrir la régression linéaire de manière intuitive
 
@@ -35,35 +31,7 @@ SciViews::R("model", lang = "fr")
 
 ##### Prérequis {.unnumbered}
 
-Avant de vous lancer tête baissée dans de la matière nouvelle, assurez-vous d'avoir installé la SciViews Box `r !'{svbox}'`. Si ce n'est pas encore fait, retournez à la [page d'accueil pour bien débuter](https://wp.sciviews.org).
-
-RStudio et (R) Markdown/Quarto ne doivent plus avoir de secrets pour vous. Les modifications par rapport à l'année précédente vous sont présentées à la première séance du cours. La présentation est disponible `r !"[ici](https://github.com/BioDataScience-Course/sdd_lessons/raw/{acad_year}/B00/presentations/B00Pa_intro.pdf)"` .
-
-##### À vous de jouer ! {.unnumbered}
-
-`r h5p(190, "B01Aa_tools", height = 270, toc = NULL)`
-
-Vous devez aussi maîtriser les bases de Git et de GitHub (avoir un compte GitHub, savoir cloner un dépôt localement, travailler dans GitHub et l'onglet **Git** de RStudio pour faire vos "commits", "pulls" et "pushes"), gérer les conflits, etc.
-
-##### À vous de jouer ! {.unnumbered}
-
-`r h5p(191, "B01Ab_git_summary", height = 270, toc = NULL)`
-
-L'ensemble de ces outils a été abordé dans le premier module et dans les annexes du cours précédents `r course_link("SDD I", course = 1, "outils")`.
-
-Outre les outils logiciels, ce cours s'appuie sur des notions que nous avons déjà abordées dans le premier cours comme la réalisation de `r course_link("graphiques en nuage de points", course = 1, "nuagedepoints")` et de `r course_link("graphiques quantile-quantile", course = 1, "quantilequantile")`, le `r course_link("test de Student", course = 1, "studentt")`, l'`r course_link("analyse de la variance à un facteur", course = 1, "anovaunfacteur")` et `r course_link("à deux facteurs", course = 1, "anovadeuxfacteurs")` ou encore les `r course_link("associations entre les variables", course = 1, "correlation")`. **Assurez-vous de bien maîtriser ces différentes parties du cours 1 avant d'entamer le présent module.**
-
-##### À vous de jouer ! {.unnumbered}
-
-`r h5p(192, "B01Ac_notions_sdd1", height = 270, toc = NULL)`
-
-Les tutoriels `learnr` auxquels vous êtes maintenant habitués seront là pour vous aider à autoévaluer votre progression. Pour le cours 2, ces tutoriels sont dans le package {BioDataScience2} qui est installé dans votre machine virtuelle.
-
-##### À vous de jouer ! {.unnumbered}
-
-Réalisez le tutoriel ci-dessous afin de revoir une série de notions du cours de science des données 1.
-
-`r learnr("B00La_refresh", title = "Rappel de SDD I", toc = NULL)`
+Vous devez être à nouveau à l'aise avec RStudio et GitHub, après l'échauffement au module 1.
 
 ## Modèle {#modele}
 
@@ -610,7 +578,7 @@ $$`r eq__(trees_lm, use_coefs = TRUE)`$$ Notez que nous avons laissé tombé $\e
 
 ##### À vous de jouer ! {.unnumbered}
 
-`r learnr("B01La_reg_lin", title = "Régression linéaire simple", toc = "Récapitulatif régression linéaire simple")`
+`r learnr("B02La_reg_lin", title = "Régression linéaire simple", toc = "Récapitulatif régression linéaire simple")`
 
 ## Outils de diagnostic {#diagnostic}
 
@@ -725,7 +693,7 @@ Cette composition offre une vision d'ensemble synthétique. Pour une inspection 
 
 ##### À vous de jouer ! {.unnumbered}
 
-`r learnr("B01Lb_residuals", title = "Analyse des résidus d'une régression", toc = "Analyse des résidus d'une régression")`
+`r learnr("B02Lb_residuals", title = "Analyse des résidus d'une régression", toc = "Analyse des résidus d'une régression")`
 
 ##### Pièges et astuces : extrapolation {.unnumbered}
 
@@ -777,24 +745,6 @@ chart(data = trees, volume ~ diameter) +
 Gardez toujours à l'esprit qu'il est possible que votre jeu de données donne une régression significative, mais purement **fortuite**. Les données supplémentaires de test devraient alors démasquer le problème. D'où l'importance de vérifier/valider votre modèle.
 
 Le **principe de parcimonie** veut que l'on ne teste pas toutes les combinaisons possibles deux à deux des variables d'un gros jeu de données, mais que l'on restreigne les explorations à des relations qui ont un sens biologique et qui répondent à la question que vous avez posée au départ, afin de minimiser le risque d'obtenir une telle régression de manière fortuite.
-
-##### À vous de jouer ! {.unnumbered}
-
-```{r assign_B01Ia_debug, echo=FALSE, results='asis', purl=FALSE}
-if (exists("assignment"))
-  assignment("B01Ia_debug", part = NULL,
-    url = "https://github.com/BioDataScience-Course/B01Ia_debug",
-    course.ids = c(
-      'S-BIOG-015'         = !"B01Ia_{YY}M_debug"),
-    course.urls = c(
-      'S-BIOG-015'         = !"{assign_url$B01Ia_debug}"),
-    course.starts = c(
-      'S-BIOG-015'         = !"{class1_start(mod, 'B01')}"),
-    course.ends = c(
-      'S-BIOG-015'         = !"{n3_end(mod, 'B01')}"),
-    term = "Q1", level = 3,
-    toc = "Débogage de script R")
-```
 
 ### Enveloppe de confiance
 
@@ -856,33 +806,53 @@ tabularise$glance(trees_lm, header = FALSE)
 
 ##### À vous de jouer ! {.unnumbered}
 
-```{r assign_B01Ib_abalone, echo=FALSE, results='asis', purl=FALSE}
+```{r assign_B02Ia_abalone, echo=FALSE, results='asis', purl=FALSE}
 if (exists("assignment"))
-  assignment("B01Ib_abalone", part = NULL,
-    url = "https://github.com/BioDataScience-Course/B01Ib_abalone",
+  assignment("B02Ia_abalone", part = NULL,
+    url = "https://github.com/BioDataScience-Course/B02Ia_abalone",
     course.ids = c(
-      'S-BIOG-015'         = !"B01Ib_{YY}M_abalone"),
+      'S-BIOG-015'         = !"B02Ia_{YY}M_abalone"),
     course.urls = c(
-      'S-BIOG-015'         = !"{assign_url$B01Ib_abalone}"),
+      'S-BIOG-015'         = !"{assign_url$B02Ia_abalone}"),
     course.starts = c(
-      'S-BIOG-015'         = !"{class1_start(mod, 'B01')}"),
+      'S-BIOG-015'         = !"{class1_start(mod, 'B02')}"),
     course.ends = c(
-      'S-BIOG-015'         = !"{n3_end(mod, 'B01')}"),
+      'S-BIOG-015'         = !"{n3_end(mod, 'B02')}"),
     term = "Q1", level = 3,
     toc = "Régression linéaire simple (ormeaux)")
 ```
 
-## Récapitulatif des exercices {#recapitulatifb01}
+##### À vous de jouer ! {.unnumbered}
 
-Ce premier module vous a permis de prendre connaissance des principes de bases de la modélisation et plus particulièrement de la régression linéaire simple par les moindres carrés. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
+Le projet suivant est un travail par groupe de quatre. Attendez les instructions de vos enseignants qui vont nommer des capitaines d'équipes pour créer les différents "teams" avant toute chose.
 
-`r show_ex_toc("01")`
+```{r assign_B02Ga_models_I, echo=FALSE, results='asis', purl=FALSE}
+if (exists("assignment2"))
+  assignment2("B02Ga_models", part = "I",
+    url = "https://github.com/BioDataScience-Course/B02Ga_models",
+    course.ids = c(
+      'S-BIOG-015' = !"B02Ga_{YY}M_models"),
+    course.urls = c(
+      'S-BIOG-015' = !"{assign_url$B02Ga_models}"),
+    course.starts = c(
+      'S-BIOG-015' = !"{class2_start(mod, 'B02')}"),
+    course.ends = c(
+      'S-BIOG-015' = !"{n4_end(mod, 'B05')}"),
+    term = "Q1", level = 4, n = 4,
+    toc = "Modélisations libres par quatre (partie I)")
+```
+
+## Récapitulatif des exercices {#recapitulatifb02}
+
+Ce second module vous a permis de prendre connaissance des principes de bases de la modélisation et plus particulièrement de la régression linéaire simple par les moindres carrés. Pour évaluer votre compréhension de cette matière, vous aviez les exercices suivants à réaliser :
+
+`r show_ex_toc("02")`
 
 ##### Code des exemples {.unnumbered}
 
--  [Document HTML](more/01-reg-lineaire.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2025/blob/main/R/01-reg-lineaire.R){target="top"}
+-  [Document HTML](more/02-reg-lineaire.html)
+-  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/02-reg-lineaire.R){target="top"}
 
 ##### Progression {.unnumbered}
 
-`r launch_report("01", height = 800)`
+`r launch_report("02", height = 800)`
