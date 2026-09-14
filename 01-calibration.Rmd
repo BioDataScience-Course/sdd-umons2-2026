@@ -27,11 +27,13 @@ SciViews::R("model", lang = "fr")
 
 ##### Objectifs {.unnumbered}
 
--   Retrouver ses marques avec R, RStudio et la SciViews Box et découvrir les fonctions supplémentaires de la nouvelle version
+- Retrouver ses marques avec R, RStudio et la SciViews Box et découvrir les fonctions supplémentaires de la nouvelle version
 
--   Apprendre à calculer une droite de calibration
+- Être capable d'installer un package additionnel dans R
 
--   Utiliser une droite de calibration pour calculer des concentrations d'échantillons inconnus
+- Apprendre à calculer une droite de calibration
+
+- Utiliser une droite de calibration pour calculer des concentrations d'échantillons inconnus
 
 ##### Prérequis {.unnumbered}
 
@@ -83,9 +85,66 @@ if (exists("assignment"))
     toc = "Débogage de script R")
 ```
 
+## Packages additionnels dans R {#packages}
+
+Un package R (on garde le terme anglais, mais on trouve aussi sa traduction en "paquet", notamment dans l'onglet du même nom dans RStudio) est un complément que l'on peut fournir à R pour en accroître les fonctionnalités. Un package R contient généralement une ou plusieurs fonctions supplémentaires qui implémentent ces fonctionnalités nouvelles. Il est accompagné de la documentation nécessaire pour en comprendre l'usage (pages d'aide des fonctions, documents nommés "vignettes" qui donnent accès à des tutoriels et des explications complémentaires, démos...) Un package R peut aussi fournir des jeux de données. Vous y accédez à l'aide de `read("nom_du_jeu", package = "nom_du_package")` dans `SciViews::R`, ou grâce à `data("nom_du_jeu", package = "nom_du_package")` en R de base. Enfin, certains packages R exposent également des applications interactives {Shiny} et/ou des tutoriels {learnr}. Le package {BioDataScience2} spécialement conçu pour ce cours en est un bon exemple.
+
+```{block, type='note', purl=FALSE}
+Votre SciViews Box possède plus de 800 packages R des plus utiles préinstallés. C'est pour cette raison que nous nb'avons pas abordé la question de leur installation plus tôt. Pratiquement tout ce qui vous est nécessaire est *déjà* préinstallé pour vous. 
+
+Cependant, les calculs concernant les droites de calibration et les mesures spectrophotométriques se font plus facilement à l'aide d'un package R supplémentaire nommé **{chemCal}**. Ce dernier étant relativement spécifique, n'est *pas* installé par défaut dans votre SciViews Box. Nous allons donc commencer par l'installer nous-même. Ainsi, vous saurez comment faire lorsque vous aurez besoin d'autres packages plus tard.
+
+```
+
+Lorsque vous installer le logiciel R depuis son site web (<https://cran.r-project.org/>), vous installez un ensemble de packages de base[^01-calibration-1]. Cependant, pour réaliser certaines analyses, il est nécessaire d'installer des packages additionnels. Ces packages sont disponibles sur le site CRAN (<https://cran.r-project.org/>), sur Bioconductor (https://www.bioconductor.org/) ou sur GitHub.
+
+[^01-calibration-1]: Plus précisément, l'installation basique de R se fait avec un ensemble de packages dits "de base", plus un autre ensemble qualifié de "recommended".
+
+Nous allons maintenant installer le package {chemCal} à partir de CRAN. Vous pouvez consulter sa page principale ici : https://cran.r-project.org/web/packages/chemCal/index.html. La fonction à utiliser est `install.packages()`. C'est en fait. très simple. L'instruction suivante fait tout le travail : 
+
+```{r, eval=FALSE}
+install.packages("chemCal")
+```
+
+Notez que si vous réexécutez cette instruction, elle va à nouveau réinstaller le package {chemCal}. Ce n'est pas un problème, mais ce n'est pas nécessaire. Généralement cette instruction n'est **pas** incluse dans un script ou un document Quarto ou R Markdown. Mais si vous y tenez, vous devez alors éviter de continuellement réinstaller le package, en vérifiant d'abord s'il existe dans votre environnement R. Une façon de le faire est la suivante :
+
+```{r}
+if (!require(chemCal))
+  install.packages("chemCal")
+```
+
+Une fois installé, un package R doit être chargé dans la session R en cours pour pouvoir être utilisé. Pour cela, on utilise la fonction `library()`. Par exemple, pour charger le package {chemCal}, on utilise l'instruction suivante :
+
+```{r}
+library(chemCal)
+```
+
+Nous avons maintenant accès aux nouvelles fonctions forunies par ce package. Voyez la page d'aide de `inverse.predict()`, ainsi que la vignette du package comme ceci :
+
+```{r, eval=FALSE}
+?inverse.predict
+vignette("chemCal")
+```
+
+À noter au passage que les instructions qui affichent des pages d'aide comme les deux précédentes ne sont généralement **pas** incluses dans un script R ou dans un document Quarto (ou alors, elles sont commentées). Ne forcez jamais l'utilisateur à affichez ces pages, à installer un package, ou à effectuer toute autre opération qui modifierait son environnement de travail. C'est l'utilisateur qui décide s'il veut faire cela ou non. C'est valable également pour la fonction `View()` qui force la visualisation d'un jeu de données. Utilisez ces fonctions à la console R, mais **jamais** dans un script ou un document Quarto.
+
+Voilà, nous avons maintenant installé {chemCal} et sommes donc prêts à aborder la suite de la matière de ce module !
+
 ## Qu'est-ce qu'une droite de calibration ? {#droitecalib}
 
-TODO...
+Un type d'analyse (bio)chimique courant consiste à utiliser une réaction chimique dont un des produits est coloré. La mesure de l'absorbance de la lumière à une longueur d'onde précise à l'aide d'un spectrophotomètre permet de déterminer la concentration du réactif cible en solution. En effet, cette absorbance est, la plupart du temsp, proportionnelle à la concentration.
+
+Avant de pouvoir calculer la concentration du réactif, il faut déterminer la **relation** qui existe ente l'absorbance mesurée et cette même concentration. Cela se fait en mesurant une série de **solutions étalons de concentrations connues**. Si nous réalisons un graphique en nuage de points avec la concentration des solutions étalons en abscisse et l'absorbance observée en ordonnée, nous pouvons constater que, la plupart du temps, les points s'alignent le long d'une droite. L'étalonnage de notre méthode de mesure passe, donc, par la détermination de la droite en question. Cette droite s'appelle la **droite de calibration** et la méthode statistique qui permet de la déterminer s'appelle une **régression linéaire par les moindres carrés**. Nous étudierons bien plus en détails la régression linéaires aux deux chapitres suivants. Ici, nous allons l'aborder d'un point de vue extrêmement pratique, sans entrez dans les considérations théoriques.
+
+Une fois la droite de calibration calculée, nous pouvons l'utiliser pour déterminer la concentration d'échantillons inconnus à partir de leur absorbance mesurée. Nous pouvons aussi calculer quelques statistiques complémentaires utiles, telles que l'intervalle de confiance sur les mesures, la **limite de détection** (LOD) et la **limite de quantification (LOQ). Nous allons aborder tout ceci en l'illustrant d'un cas concret d'analyse de nitrates dans de l'eau de mer.
+
+### Dosage des nitrates dans l'eau de mer
+
+Les nitrates NO~3~^-^ sont des nutriments essentiels pour la croissance des plantes et des algues. Cependant, un excès de nitrates dans l'eau peut entraîner une prolifération excessive d'algues, ce qui peut avoir des effets néfastes sur les écosystèmes aquatiques. Parfois, le nitrates sont présents en trop faibles quantités dans des eaux très oligothrophes, et les algues peinent à s'y développer. Il est donc important de surveiller les niveaux de nitrates dans l'eau de mer, tant en océanographie biologique qu'en aquariophilie.
+
+L'[autoanalyzer AA3 de Seal](https://seal-analytical.com/en/products/continuous-flow-analyzers/aa3-hr-autoanalyzer-legacy-system/) permet d'automatiser les mesures de nitrates dans l'eau de mer. Le [principe du dosage](https://www.epa.gov/sites/default/files/2015-08/documents/method_353-2_1993.pdf) consiste à d'abord réduire les nitrates en nitrites NO~2~^-^ en passant l'échantillon sur des billes de cadmium-cuivre, puis à faire réagir ces derniers avec du N-(1-naphthyl)-éthylènediamine en présence de sulfanilamide. Cette réaction produit un colorant azoïque dont l'absorbance est mesurée à la longueur d'onde de 520 nm. À noter que cette technique mesure, en fait, la somme nitrates + nitrites, si des nitrites sont déjà présents dans les échantillons. Pour déterminer les nitrates seuls, il faut réaliser la même réaction sans l'étape de réduction sur colonne de cadmium et retirer la concentration en nitrites ainsi mesurée. Pour cette raison, nous parlerons désormais de **NOx** comme étant la somme des concentrations en nitrates et en nitrites dans nos échantillons.
+
+
 
 ##### À vous de jouer ! {.unnumbered}
 
@@ -117,8 +176,8 @@ Ce premier module vous a permis d'apprendre à calculer une droite de calibratio
 
 ##### Code des exemples {.unnumbered}
 
--  [Document HTML](more/01-calibration.html)
--  [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/01-calibration.R){target="top"}
+- [Document HTML](more/01-calibration.html)
+- [Script R](https://github.com/BioDataScience-Course/sdd-umons2-2026/blob/main/R/01-calibration.R){target="top"}
 
 ##### Progression {.unnumbered}
 
