@@ -136,14 +136,206 @@ Un type d'analyse (bio)chimique courant consiste à utiliser une réaction chimi
 
 Avant de pouvoir calculer la concentration du réactif, il faut déterminer la **relation** qui existe ente l'absorbance mesurée et cette même concentration. Cela se fait en mesurant une série de **solutions étalons de concentrations connues**. Si nous réalisons un graphique en nuage de points avec la concentration des solutions étalons en abscisse et l'absorbance observée en ordonnée, nous pouvons constater que, la plupart du temps, les points s'alignent le long d'une droite. L'étalonnage de notre méthode de mesure passe, donc, par la détermination de la droite en question. Cette droite s'appelle la **droite de calibration** et la méthode statistique qui permet de la déterminer s'appelle une **régression linéaire par les moindres carrés**. Nous étudierons bien plus en détails la régression linéaires aux deux chapitres suivants. Ici, nous allons l'aborder d'un point de vue extrêmement pratique, sans entrez dans les considérations théoriques.
 
-Une fois la droite de calibration calculée, nous pouvons l'utiliser pour déterminer la concentration d'échantillons inconnus à partir de leur absorbance mesurée. Nous pouvons aussi calculer quelques statistiques complémentaires utiles, telles que l'intervalle de confiance sur les mesures, la **limite de détection** (LOD) et la **limite de quantification (LOQ). Nous allons aborder tout ceci en l'illustrant d'un cas concret d'analyse de nitrates dans de l'eau de mer.
+Une fois la droite de calibration calculée, nous pouvons l'utiliser pour déterminer la concentration d'échantillons inconnus à partir de leur absorbance mesurée. Nous pouvons aussi calculer quelques statistiques complémentaires utiles, telles que l'intervalle de confiance sur les mesures, la **limite de détection** (LOD) et la **limite de quantification** (LOQ). Nous allons aborder tout ceci en l'illustrant d'un cas concret d'analyse de nitrates dans de l'eau de mer.
 
-### Dosage des nitrates dans l'eau de mer
+## Exemple : dosage des nitrates dans l'eau de mer
 
 Les nitrates NO~3~^-^ sont des nutriments essentiels pour la croissance des plantes et des algues. Cependant, un excès de nitrates dans l'eau peut entraîner une prolifération excessive d'algues, ce qui peut avoir des effets néfastes sur les écosystèmes aquatiques. Parfois, le nitrates sont présents en trop faibles quantités dans des eaux très oligothrophes, et les algues peinent à s'y développer. Il est donc important de surveiller les niveaux de nitrates dans l'eau de mer, tant en océanographie biologique qu'en aquariophilie.
 
 L'[autoanalyzer AA3 de Seal](https://seal-analytical.com/en/products/continuous-flow-analyzers/aa3-hr-autoanalyzer-legacy-system/) permet d'automatiser les mesures de nitrates dans l'eau de mer. Le [principe du dosage](https://www.epa.gov/sites/default/files/2015-08/documents/method_353-2_1993.pdf) consiste à d'abord réduire les nitrates en nitrites NO~2~^-^ en passant l'échantillon sur des billes de cadmium-cuivre, puis à faire réagir ces derniers avec du N-(1-naphthyl)-éthylènediamine en présence de sulfanilamide. Cette réaction produit un colorant azoïque dont l'absorbance est mesurée à la longueur d'onde de 520 nm. À noter que cette technique mesure, en fait, la somme nitrates + nitrites, si des nitrites sont déjà présents dans les échantillons. Pour déterminer les nitrates seuls, il faut réaliser la même réaction sans l'étape de réduction sur colonne de cadmium et retirer la concentration en nitrites ainsi mesurée. Pour cette raison, nous parlerons désormais de **NOx** comme étant la somme des concentrations en nitrates et en nitrites dans nos échantillons.
 
+### Encodage ou importation des données
+
+Comme toujours, la première étape de notre analyse consiste à introduire les données brutes dans R dans un format correct. Si nos données ne sont pas encore encodées dans un fichier, nous pouvons utiliser toutes les techniques vues au cours 1, notamment lors de l'exercice d'encodage des données biométriques. Les options sont :
+
+- Encodage direct dans R avec les fonctions `data.frame()`(R de base), `dplyr::tribble()` ou `tibble::tibble()` (tidyverse), ou encore avec `dtx()` ou `dtx_rows()` (SciViews::R).
+- Encodage dans un fichier Excel, Google Sheet, Libreoffice Calc... et importation, par exemple avec `read()` de SciViews::R ou `readxl::read_excel()` (tidyverse)
+- Encodage dand un fichier texte, en utilisant la virgule comme séparateur de champs et l'extension `.csv`, et importation avec `read()` de SciViews::R ou `readr::read_csv()` (tidyverse). Si vous encodez manuellement un fichier CSV, nous vous conseillons d'utiliser un éditeur spécialisé comme [ModernCSV](https://www.moderncsv.com) qui vous rendra la tâche plus facile et vous évitera de faire des erreurs de formattage des données.
+
+Une autre situation qui peut se présenter à vous est un appareil qui enregistre les résultats directement dans un fichier texte. Dans ce cas, il est souvent nécessaire de nettoyer le fichier avant de pouvoir l'importer dans R. Il n'est pas rare d'avoir, en effet, des informations supplémentaires fournies par l'appareil dans l'entête du fichier (ses premières lignes). Voyez la documentation de votre appareil de mesures. L'autoanalyzer AA3 étant dans ce cas de figure, nous allons maintenant voir comment traiter ce type de données avec R. Ci-dessous, les premières lignes d'un fichier issus directement de l'AA3 :
+
+```{r}
+readLines("data/sdd2_01/171124B.TXT", n = 20)
+```
+Nous pouvons voir immédiatement plusieurs choses :
+
+- Le fichier est bien un fichier texte,
+- Le séparateur de champs est ici le point virgule `;`,
+- L'entête occupe les 13 premières lignes et renseigne une série de métadonnées relatives à l'analyse et à l'appareil. Par exemple, ligne 9, on peut lire que les 3 méthodes d'analyse sont, dans l'ordre, , PO4 (les phosphates), NO3 (les nitrates + nitrites), et NH4 (ammonium + ammoniac). De même, ligne 10, on voit que les unités des concentrations sont "xb5mol/L"... Huummm ! Drôle d'unité. En fait ici, nous n'avons pas utilisé le bon encodage. Si nous relisons cette ligne 10 avec un encodage "latin1", typique d'un Windows en français, nous avons alors ceci :
+
+```{r}
+readLines("data/sdd2_01/171124B.TXT", n = 10, encoding = "latin1")[10]
+```
+
+Donc, les unités sont des µmol/L.
+
+L'entête des colonnes est en ligne 14 et les données commencent en ligne 15. Comme nous avons un peu de remaniement des données à réaliser également, nous pouvons écrire une petite fonction en R pour automatiser le tout :
+
+```{r}
+read_aa3 <- function(aa3_file) {
+  # Lecture du fichier brut (encodage latin1, séparateur ';', décimale '.')
+  data <- read.csv2(aa3_file, skip = 13, header = TRUE, dec = ".",
+    fileEncoding = "latin1", stringsAsFactors = FALSE, na.strings = "")
+  # Sélection et renommage des colonnes d'intérêt
+  data <- data[, c("Sample.ID", "Peak.Number", "Cup.Number", "Cup.Type",
+    "Cup.Group", "Date.Time.Stamp", "X.2", "AD.Values",
+    "X.3", "AD.Values.1", "X.4", "AD.Values.2")]
+  names(data) <- c("sample_id", "peak_number", "cup_number", "cup_type",
+    "cup_group", "date_time", "PO4__umol_L", "abs.PO4",
+    "NOx__umol_L", "abs.NOx", "NH4__umol_L", "abs.NH4")
+  # Conversion de variables
+  data$cup_type <- as.factor(data$cup_type)
+  data$cup_group <- as.factor(data$cup_group)
+  data$date_time <- as.POSIXct(data$date_time, format = "%d/%m/%Y %H:%M:%OS")
+ 
+  data
+}
+```
+
+Vous êtes maintenant habitué à ce type de reman,iement de données. Ici, nous n'avons utilisé que du R de base pour le réaliser, mais vous pouvez également utiliser la syntaxe SciViews::R à laquelle vous êtes peut-être plus habitué•e. Nous pouvons maintenant importer nos données proprement et les placer sur un graphique :
+
+```{r}
+calib <- read_aa3("data/sdd2_01/171124B.TXT")
+calib
+```
+
+Nous voyons qu'il s'agit ici de solution standard de calibration nommée "calxx" où "xx" est la concentration connue en µmol/L... mais la concentration n'a été correctement encodée que pour la première série indiquée `cub_type == "CALB"`. Nous allons y remédier en indiquant les concentrations correctes pour les autres lignes du tableau :
+
+```{r}
+# Récupération des concentrations à partir de l'identifiant des échantillons
+conc <- substring(calib$sample_id, 4) |> as.numeric()
+conc
+```
+
+... et nous remplaçons les concentrations par ces valeurs dans le tableau. Ensuite, nous éliminons les lignes qui ne correspondent pas à une solution de calibration, dont la concentration est `NA` :
+
+```{r}
+calib$PO4__umol_L <- conc
+calib$NOx__umol_L <- conc
+calib$NH4__umol_L <- conc
+calib <- drop_na_(calib, "PO4__umol_L")
+calib
+```
+
+Parfait ! Maintenant, le graphique...
+
+```{r}
+chart(data = calib, abs.NOx ~ NOx__umol_L) +
+  geom_point() +
+  labs(x = "Concentration en NOx [µmol/L]", y = "Absorbance")
+```
+
+Notez que nous plaçons la concentration en abscisse et l'absorbance en ordonnée. C'est la convention pour les droites de calibration. Nous verrons dans les deux chapitres suivants que la méthode statistique d'ajustement de la droite de calibration considère qu'il n'y a pas d'erreur sur l'axe X et que toute l'erreur est reportée su Y. Or nous avons moins d'erreur sur la concentration de nos solutions standard que sur l'absorbance. Donc, nous plaçons la concentration en X pour se rapprocher de cette contrainte.
+
+### Calcul de la droite de calibration avec R
+
+Nous voyons que les points s'alignent bien le long d'une droite dans notre jeu de données exemple, ce qui est une bonne nouvelle. Nous pouvons rajouter la droite qui se place au mieux dans le nuage de points comme ceci sur notre graphique :
+
+```{r}
+SciViews::R
+chart(data = calib, abs.NOx ~ NOx__umol_L) +
+  geom_point() +
+  # Droite de calibration
+  geom_smooth(method = "lm", color = "blue") +
+  labs(x = "Concentration en NOx [µmol/L]", y = "Absorbance")
+```
+
+Dans R, cette droite se calcule avec la fonction `lm()` comme ceci :
+
+```{r}
+calib_lm <- lm(data = calib, abs.NOx ~ NOx__umol_L)
+calib_lm
+```
+
+Dans le petit tableau "Coefficients", "(Intercept)" est l'ordonnée à l'origine et "NOx__umol_L" est la pente de la droite par rapport à cette variable. Notre droite de calibration a donc la forme mathématique suivante :
+
+$$Absorbance = 5422 \times NOx + 4397$$
+
+Dans les deux chapitres suivants, nous étudierons la théorie relative à la droitegalement quelques descripteurs et tests statistiques autour de cette droite, afin de vérifier que le modèle utilisé est correct, ou de calculer l'incertitiude sur la position de la droite. En cas de problème, ces outils statistiques nous aideront également à les diagnostiquer plus en détails.
+
+### Droite de calibration avec {chemCal}
+
+Le package additionnel {chemCal} fournit des fonctions qui vont nous faciliter la vie et aussi nous permettre d'avoir plus d'information sur nos dosages. Par exemple, en partant de note objet `calib_lm`, nous pouvons réaliser un graphique plus complet à l'aide de la fonction `calplot()` :
+
+```{r, warning=FALSE}
+chemCal::calplot(calib_lm,
+  xlab = "Concentration en NOx [µmol/L]", ylab = "Absorbance")
+```
+
+Ici, nous avons une présentation un peu différente du graphique (c'est un graphique R de base), mais surtout, nous avons des traits verts et rouges qui sont ajoutés autour de la droite de calibration en noir. Ces traits matérialisent des informations statistiques complémentaires et importantes. Les traits verts correspondent à l'**enveloppe de confiance à 95%** qui indiquent l'incertitude statistique sur le calcul de la droite (l'équivalent de l'intervalle de confiance sur une moyenne que nous avons étudié en SDD II). Ici, ces traits sont très, très proches de la droite de calibration, ce qui nous indique qu'elle est calculée très précisément.
+
+Les traits pointillés rouges indiquent l'incertitude sur la prédiction de la concentration d'un échatillon inconnu, toujours avec une probabilité de 95% (un argument `alpha=`, qui vaut 0.05 par défaut permet éventuellement de changer la probabilité de ces bandes supplémentaires, si on le désire). Ces intervalles de prédiction sont à rapprocher du `lod()` que nous aborderons un peu plus loin.
+
+### Détermination de la concentration d'échantillons inconnus
+
+Avec le jeu de données traité jusqu'ici, nous n'avions que des solutions standard de concentration connue. Naturellement, l'intérêt d'établir une droite de calibration avec de telles solutions standards, est de pouvoir ensuite passer dans le même appareil des solutions de concentration inconnue, et de les calculer. Nous allons refaire le traitement avec un autre jeu de données issu du même autoanalyze AA3, et qui contient des solutions de concentration inconnue. Nous travaillerons directement avec {chemCal} et réutilisons naturellement notre fonction `read_aa3()` bien pratique ici :
+
+```{r}
+ana <- read_aa3("data/sdd2_01/171124AR1.TXT")
+# Nous ne conservons ici que les 20 premières lignes du tableau
+ana <- ana[1:20, ]
+ana
+```
+
+Les lignes 2 à 10 se réfèrent à nos solutions standard en les lignes 12 à 20 correspondent à des échantillons de concentration inconnue. Les lignes 1 et 11 correspondent au signal de base obtenu à l'aide d'eau ultrapure, et ne nous intéressent pas. Nous pouvons donc diviser notre tableau en `calib2` pour la calibration et `samples` avec nos échantillons inconnus.
+
+```{r}
+calib2 <- ana[2:10, ]
+samples <- ana[12:20, ]
+```
+
+Voici le calcul et la représentation de notre droite de calibration dans ce second cas pour les NOx :
+
+```{r}
+calib2_lm <- lm(data = calib2, abs.NOx ~ NOx__umol_L)
+calib2_lm
+chemCal::calplot(calib2_lm,
+  xlab = "Concentration en NOx [µmol/L]", ylab = "Absorbance")
+```
+
+Notez que les enveloppes de confiance et de prédiction sont un tout petit peu plus large. En effet, nous n'avons pas de réplicas pour les solutions standards (elle ne sont passées qu'une seule fois). Cependant, le résultat reste très précis et les points s'alignent très bien linéairement, à part un en troisième position, très légèrement décalé vers le haut. La pente et l'ordonnée à l'origine sont relativement proches de ceux obtenus avec notre premier jeu de données. La réponse de l'appareil est assez stable d'un lot à l'autre.
+
+Nous pouvons maintenant utiliser cette droite pour calculer la concentration des échantillons inconnus à partir de leur absorbance, ainsi que le vecteur des absorbances mesurées pour **un seul** échantillon. Mais ici, nous n'avons qu'une seule valeur mesurée pour **différents** échantillons. Nous pouvons appliquer la fonction sur le premeir échantillon comme ceci :
+
+```{r, warning=FALSE}
+chemCal::inverse.predict(calib2_lm, newdata = samples$abs.NOx[1])
+```
+
+La concentration prédite pour ce premier échantillon est de 0,081 µmol/L. L''ereur standard sur cette prédiction est de 0,100 µmol/L, et l'intervalle de confiance vers le haut et vers le bas est de 0,239 µmol/L, ce qui donne un intervalle de prédiction allant de -0,157 à 0,320 µmol/L. Naturellement, des concentrations négatives n'ont aucun sens. Cela veut seulement dire que, comme zéro est compris dans l'intervalle de confiance à 95%, nous ne pouvons pas certifier que des nitrates sont effectivement présentes dans cet échantillon. Et si ils le sont, leur concentration est très, très faible.
+
+Le package {chemCal} fournit également une fonction `lod()` qui calcule la limite de détection (LOD) et `loq()`, la limite de quantification (LOQ) pour notre dosage. La LOD est la plus petite concentration que nous pouvons détecter avec certitude, tandis que la LOQ est la plus petite concentration que nous pouvons quantifier avec précision. Ces deux valeurs sont calculées à partir de l'erreur standard de la droite de calibration et du niveau de confiance choisi (par défaut 95%). Voici comment les calculer :
+
+```{r, warning=FALSE}
+chemCal::lod(calib2_lm)
+chemCal::loq(calib2_lm)
+```
+
+Ainsi avec notre seconde droite de calibration, et si nous n'utilisons qu'une seule mesure par échantillons, nous pourrons détecter des concentrations siginificatives en nitrates + nitrites à partir de 0,38 µmol/L. La quantification ne devient effective qu'à partir de concentrations supérieures ou égales à 0,71 µmol/L. Pour pouvoir détecter ou quantifier des concentrations plus faibles, il faut augmenter le nombres de solutions standards pour obtenir une droite de calibration plus précise et/ou augmenter le nombre de réplicas pour les échantillons inconnus... jusqu'à une certaine limite inhérante à la méthode de dosage. S'il faut être encore plus précis, alors il faut rechercher un autre technique de dosage. Voiyez les pages d'aides `?chemCal::lod` et `?chemCal::loq` pour plus de détails et pour déterminer comment calculer ces valeurs lorsque les échatillons inconnus sont répliqués.
+
+Revenons à nos échantillons inconnus. Nous pouvons calculer leurs concentrations en une seule fois et inclure les résultats dans le tableau `samples` comme ceci :
+
+```{r, warning=FALSE}
+concs <- purrr::map(samples$abs.NOx, chemCal::inverse.predict, object = calib2_lm) |>
+  sapply(unlist) |>
+  t()
+concs
+```
+
+Ce calcul est un peu compliqué. Il utilise la fonction `purrr::map()` qui va appliquer de manière récursive la fonction `chemCal::inverse.predict()` à chaque valeur de `samples$abs.NOx`. Le résultat est une liste de listes, soit un objet pas très maniable. Nous appelons ensuite la fonction `sapply()` qui applique à chaque élément de la liste de premier niveau `unlist()` qui transforme les listes imbriquées en vecteurs. Ensuite, le tout est simplifié en une matrice, mais les lignes et les colonnes sont inversées. Donc, `t()` transpose ce tableau pour que chaque ligne corresponde à un échantillon. Nous pouvons rajouter cela au tableau `samples` dont on ne garde que les colonnes pertinentes comme ceci :
+
+```{r}
+cbind(samples [ , c("sample_id", "abs.NOx")], concs)
+```
+
+Nous voyons que certaines prédictions de concentrations sont négatives. Ce n'est pas gênant. Cela se produit lorsque la concentration est très très faible et très inférieure à la limite de détection. Dès lors, l'erreur de mesure sur l'absorbance, et l'incertitude sur la droite de calibration puet avoir pour conséquence que certaines valeurs prédites sont légèrement négatives. Naturellement, dans le rapport final, nous reprterons ces valeurs comme "<xxx", ou "xxx" est la limite de détection.
+
+### Calculs directement dans Excel
+
+Pour des droites de calibration et des calculs de concentrations inconnues simples, sans statistiques supplémentaires telles que les intervalles de confiance, le LOD et le LOQ, il est possible de travailler directement dans un fichier Excel. Cela peut rendre des services, même si c'est moins complet, et nettement moins pratique pour des grands séries d'analyse qu'avec R, où les scripts sont automatisables facilement.
+
+Nous ne présentons pas dans le cours comment faire, mais vous le réaliserez vous-même dans le projet individuel ci-dessous.
+
+**TODO: lien vers le learnr et le projet individuel... aussi rajouter quelques exercices H5P un peu partout dans ce module**
 
 
 ##### À vous de jouer ! {.unnumbered}
