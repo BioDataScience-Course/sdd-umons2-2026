@@ -65,7 +65,7 @@ Les tutoriels `learnr` auxquels vous êtes maintenant habitués seront là pour 
 
 Réalisez le tutoriel ci-dessous afin de revoir une série de notions du cours de science des données 1.
 
-`r learnr("B00La_refresh", title = "Rappel de SDD I", toc = NULL)`
+`r learnr("B00La_refresh", title = "Rappel de SDD I")`
 
 ##### À vous de jouer ! {.unnumbered}
 
@@ -333,14 +333,19 @@ Nous voyons que certaines prédictions de concentrations sont négatives. Ce n'e
 
 Pour des droites de calibration et des calculs de concentrations inconnues simples, sans statistiques supplémentaires telles que les intervalles de confiance, le LOD et le LOQ, il est possible de travailler directement dans un fichier Excel. Cela peut rendre des services, même si c'est moins complet, et nettement moins pratique pour des grands séries d'analyse qu'avec R, où les scripts sont automatisables facilement.
 
-Nous ne présentons pas dans le cours comment faire, mais vous le réaliserez vous-même dans le projet individuel ci-dessous.
+Nous ne présentons pas dans le cours comment faire, mais vous le réaliserez vous-même dans le projet individuel.
 
-**TODO: lien vers le learnr et le projet individuel... aussi rajouter quelques exercices H5P un peu partout dans ce module**
+<!--
+##### À vous de jouer ! {.unnumbered}
 
+r h5p(201, "B01Ha_calib", height = 270, toc = "Droite de calibration")`
+-->
 
 ##### À vous de jouer ! {.unnumbered}
 
-`r h5p(201, "B01Ha_calib", height = 270, toc = "Droite de calibration")`
+Réalisez le tutoriel ci-dessous pour affinier votre compréhension de la droite de calibration et son utilisation pour calculer des concentrations inconnues.
+
+`r learnr("B01La_calib", title = "Tutoriel droite de calibration")`
 
 ##### À vous de jouer ! {.unnumbered}
 
