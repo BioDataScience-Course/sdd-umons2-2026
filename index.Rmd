@@ -187,22 +187,22 @@ Enfin, vous avez à disposition un learnr de "feedback" qui vous permet de faire
 
 ## Planning des séances {#planning .unnumbered}
 
-| Module             | Préparation pour le ... |  Fin N1-3            | Projet N4                   | Challenge                       | Interrogation.             |
-|--------------------|-------------------------|----------------------|-----------------------------|---------------------------------|----------------------------|
-| **Quadri 1**       |                         |                      |                             |                                 |                            |
-| *(install party)*  | `r !"{mod$start[1]}"`   | `r !"{mod$N3[1]}"`   | `r !"{mod$N4[1]}"`          | **`r !"{mod$challenge[1]}"`**   | **`r !"{mod$test[1]}"`**   |
-| 1 Rég. lin. 1.     | `r !"{mod$start[2]}"`   | `r !"{mod$N3[2]}"`   | `r !"{mod$N4[2]}"`          | **`r !"{mod$challenge[2]}"`**   | **`r !"{mod$test[2]}"`**   |
-| 2 Rég. lin. 2      | `r !"{mod$start[3]}"`   | `r !"{mod$N3[3]}"`   | `r !"{mod$N4[3]}"`          | **`r !"{mod$challenge[3]}"`**   | **`r !"{mod$test[3]}"`**   |
-| 3 LM               | `r !"{mod$start[4]}"`   | `r !"{mod$N3[4]}"`   | `r !"{mod$N4[4]}"`          | **`r !"{mod$challenge[4]}"`**   | **`r !"{mod$test[4]}"`**   |
-| 4 GLM              | `r !"{mod$start[5]}"`   | `r !"{mod$N3[5]}"`   | `r !"{mod$N4[5]}"`          | **`r !"{mod$challenge[5]}"`**   | **`r !"{mod$test[5]}"`**   |
-| 5 Non linéaire     | `r !"{mod$start[6]}"`   | `r !"{mod$N3[6]}"`   | **fin `r !"{mod$N4[6]}"` ** | **`r !"{mod$challenge[6]}"`**   | **`r !"{mod$test[6]}"`**   |
-| *(rattrapage)*     | `r !"{mod$start[7]}"`   | `r !"{mod$N3[7]}"`   | `r !"{mod$N4[7]}"`          | **`r !"{mod$challenge[7]}"`**   | **`r !"{mod$test[7]}"`**   |
-| **Quadri 2**       |                         |                      |                             |                                 |                            |
-| 6 Classif.         | `r !"{mod$start[8]}"`   | `r !"{mod$N3[8]}"`   | `r !"{mod$N4[8]}"`          | **`r !"{mod$challenge[8]}"`**   | **`r !"{mod$test[8]}"`**   |
-| 7 ACP/AFC          | `r !"{mod$start[9]}"`   | `r !"{mod$N3[9]}"`   | `r !"{mod$N4[9]}"`          | **`r !"{mod$challenge[9]}"`**   | **`r !"{mod$test[9]}"`**   |
-| 8 AFM              | `r !"{mod$start[10]}"`  | `r !"{mod$N3[10]}"`  | `r !"{mod$N4[10]}"`         | **`r !"{mod$challenge[10]}"`**  | **`r !"{mod$test[10]}"`**  |
-| 9 MDS              | `r !"{mod$start[11]}"`  | `r !"{mod$N3[11]}"`  | `r !"{mod$N4[11]}"`         | **`r !"{mod$challenge[11]}"`**  | **`r !"{mod$test[11]}"`**  |
-| 10 SOM             | `r !"{mod$start[12]}"`  | `r !"{mod$N3[12]}"`  | `r !"{mod$N4[12]}"`         | **`r !"{mod$challenge[12]}"`**  | **`r !"{mod$test[12]}"`**  |
+| Module             | Préparation pour le ... |  Fin N1-3            | Projet N4                   | Interrogation.             |
+|--------------------|-------------------------|----------------------|-----------------------------|----------------------------|
+| **Quadri 1**       |                         |                      |                             |                            |
+| *(install party)*  | `r !"{mod$start[1]}"`   | `r !"{mod$N3[1]}"`   | `r !"{mod$N4[1]}"`          | **`r !"{mod$test[1]}"`**   |
+| 1 Calibration      | `r !"{mod$start[2]}"`   | `r !"{mod$N3[2]}"`   | `r !"{mod$N4[2]}"`          | **`r !"{mod$test[2]}"`**   |
+| 2 Rég. lin. 1      | `r !"{mod$start[3]}"`   | `r !"{mod$N3[3]}"`   | `r !"{mod$N4[3]}"`          | **`r !"{mod$test[3]}"`**   |
+| 3 Rég. lin1 2      | `r !"{mod$start[4]}"`   | `r !"{mod$N3[4]}"`   | `r !"{mod$N4[4]}"`          | **`r !"{mod$test[4]}"`**   |
+| 4 LM               | `r !"{mod$start[5]}"`   | `r !"{mod$N3[5]}"`   | `r !"{mod$N4[5]}"`          | **`r !"{mod$test[5]}"`**   |
+| 5 GLM              | `r !"{mod$start[6]}"`   | `r !"{mod$N3[6]}"`   | **fin `r !"{mod$N4[6]}"` ** | **`r !"{mod$test[6]}"`**   |
+| *(rattrapage)*     | `r !"{mod$start[7]}"`   | `r !"{mod$N3[7]}"`   | `r !"{mod$N4[7]}"`          | **`r !"{mod$test[7]}"`**   |
+| **Quadri 2**       |                         |                      |                             |                            |
+| 6 Classif.         | `r !"{mod$start[8]}"`   | `r !"{mod$N3[8]}"`   | `r !"{mod$N4[8]}"`          | **`r !"{mod$test[8]}"`**   |
+| 7 ACP/AFC          | `r !"{mod$start[9]}"`   | `r !"{mod$N3[9]}"`   | `r !"{mod$N4[9]}"`          | **`r !"{mod$test[9]}"`**   |
+| 8 AFM              | `r !"{mod$start[10]}"`  | `r !"{mod$N3[10]}"`  | `r !"{mod$N4[10]}"`         | **`r !"{mod$test[10]}"`**  |
+| 9 MDS              | `r !"{mod$start[11]}"`  | `r !"{mod$N3[11]}"`  | `r !"{mod$N4[11]}"`         | **`r !"{mod$test[11]}"`**  |
+| 10 SOM             | `r !"{mod$start[12]}"`  | `r !"{mod$N3[12]}"`  | `r !"{mod$N4[12]}"`         | **`r !"{mod$test[12]}"`**  |
 
 : Dates importantes pour les activités de science des données biologiques II (à 23:59:59 pour les fins de projets N3 ou N4, à l'heure de la séance en présentiel pour les autres dates).
 
