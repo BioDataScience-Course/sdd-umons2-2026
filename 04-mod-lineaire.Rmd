@@ -353,7 +353,7 @@ dtx(X = c(0, 3, 0, 3), Y = c(2, 5, 3, 6), F = c("A", "A", "B", "B")) %>.%
     geom_line()
 ```
 
--   Les deux nuages de points s'allongent linéairement le long de **droites ayant des pentes différentes, mais qui se croisent en *X* = 0**. Les droites diffèrent donc **par leurs pentes,** mais pas par leurs ordonnées à l'origine. Cela s'exprime par des **interactions entre *X* et *F*** dans le modèle qui se notent `X:F` dans une formule. Nous écrirons donc notre modèle comme `Y = X + X:F`.
+-   Les deux nuages de points s'allongent linéairement le long de **droites ayant des pentes différentes, mais qui se croisent en *X* = 0**. Les droites diffèrent donc **par leurs pentes,** mais pas par leurs ordonnées à l'origine. Cela s'exprime par des **interactions entre *X* et *F*** dans le modèle qui se notent `X:F` dans une formule. Nous écrirons donc notre modèle comme `Y ~ X + X:F`.
 
 ```{r echo=FALSE, purl=FALSE}
 dtx(X = c(0, 3, 0, 3), Y = c(2, 5, 2, 6), F = c("A", "A", "B", "B")) %>.%
@@ -361,7 +361,7 @@ dtx(X = c(0, 3, 0, 3), Y = c(2, 5, 2, 6), F = c("A", "A", "B", "B")) %>.%
     geom_line()
 ```
 
--   Les deux droites se croisent en un point quelconque différent de *X* = 0. Les droites diffèrent *à la fois* par leurs pentes et par leurs ordonnées à l'origine. Le **modèle complet** sera alors utilisé. Dans R nous écrirons : `Y = X + F + X:F`. Une forme abrégée synonyme existe aussi : `Y = X * F`. Ces deux formules décrivent strictement le même modèle et sont interchangeables.
+-   Les deux droites se croisent en un point quelconque différent de *X* = 0. Les droites diffèrent *à la fois* par leurs pentes et par leurs ordonnées à l'origine. Le **modèle complet** sera alors utilisé. Dans R nous écrirons : `Y ~ X + F + X:F`. Une forme abrégée synonyme existe aussi : `Y ~ X * F`. Ces deux formules décrivent strictement le même modèle et sont interchangeables.
 
 ```{r echo=FALSE, purl=FALSE}
 dtx(X = c(0, 3, 0, 3), Y = c(2, 6, 3, 5), F = c("A", "A", "B", "B")) %>.%
@@ -571,7 +571,7 @@ colnames(helm) <- c('smoke1', 'smoke2', 'smoke3')
 helm
 ```
 
--   `smoke1` est le décalage de l'ordonnée à l'origine entre le modèle moyen établi avec les données `smoke == "until"` et `smoke == "before"` et celui pour `smoke == "before"` (non significatif au seuil alpha de 5%),
+-   `smoke1` est le décalage de l'ordonnée à l'@origine entre le modèle moyen établi avec les données `smoke == "never"` et `smoke == "before"` et celui pour `smoke == "before"` (non significatif au seuil alpha de 5%),
 -   `smoke2` est le décalage de l'ordonnée à l'origine pour `smoke == "until"` *par rapport au modèle ajusté sur `smoke == "never"`, `smoke == "before"` et `smoke == "until"` avec des pondérations respectives de -1, -1, et 2* (non significatif au seuil alpha de 5%),
 -   `smoke3` est le décalage de l'ordonnée à l'origine par rapport au modèle ajusté sur l'ensemble des autres observations et des pondérations respectives comme dans la dernière colonne de la matrice de contraste. Donc, ce dernier contraste est celui qui nous intéresse, car il compare les cas où la mère n'a pas fumé pendant la grossesse avec le cas `smoke == "during"` où la mère a fumé pendant la grossesse. Ce contraste est significatif au seuil alpha de 5%. L'interprétation des valeurs estimées est plus complexe ici. Comparez ce résultat avec le modèle ajusté avec les contrastes de traitement par défaut :
 
